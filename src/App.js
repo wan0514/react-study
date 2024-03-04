@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useCallback, useEffect, useState } from 'react';
+import Child from './child';
 
-function App() {
+//함수 생성을 기록하기 위한 Set 객체 생성
+const set = new Set();
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log('useEffect');
+  }, []);
+
+  const increase = () => setCount(count + 1);
+  const decrease = () => setCount(count - 1);
+
+  const printLog = () => console.log('re-execute');
+
+  //printLog함수를 set에 추가!
+  set.add(printLog);
+  console.log(set);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Child
+        handleIncrease={increase}
+        handleDecrease={decrease}
+        count={count}
+      />
+
+      <button onClick={printLog}>Print</button>
     </div>
   );
 }
-
-export default App;
