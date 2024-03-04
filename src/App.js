@@ -14,9 +14,10 @@ export default function App() {
   const increase = () => setCount(count + 1);
   const decrease = () => setCount(count - 1);
 
-  const printLog = () => console.log('re-execute');
+  // ✨ useCallback을 사용해서 메모리에 저장해서 재사용하기
+  const printLog = useCallback(() => console.log('re-execute'), []);
 
-  //printLog함수를 set에 추가!
+  //printLog함수를 set에 추가!  //✨ usecallback을 사용하자 set에 더이상 함수가 추가되지 않는다 .
   set.add(printLog);
   console.log(set);
 
